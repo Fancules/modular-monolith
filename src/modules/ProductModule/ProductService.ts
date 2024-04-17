@@ -1,10 +1,10 @@
 import mediator from "../../core/mediator";
 
-function AddProduct(payload: any){
+function AddProduct(payload: IPayload | null){
     return "Product added!";
 }
 
-function GetProducts(payload: any){
+function GetProducts(payload: IPayload | null){
     return "List of products";
 }
 

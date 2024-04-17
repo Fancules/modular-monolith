@@ -1,11 +1,11 @@
-function AddUser(payload: any) {
+function AddUser(payload: IPayload | null) {
     const user = {
         salary: 1500
     }
     return "User added!";
 }
 
-function GetUserByID(payload: any) {
+function GetUserByID(payload: IPayload | null) {
     return "User details!";
 }
 

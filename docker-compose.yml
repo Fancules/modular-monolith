@@ -1,10 +1,25 @@
 version: '3'
 
 services:
-  app:
+  app_instance_1:
     build:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app1
+    environment:
+      - PORT=3000
+      - PRODUCT_MODULE={"protocol":"InProcess", "address":null}
+      - USER_MODULE={"protocol":"HTTP", "address":"http://localhost:3001"}
+  app_instance_2:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/usr/src/app2
+    environment:
+      - PORT=3001
+      - PRODUCT_MODULE={"protocol":"HTTP", "address":"http://localhost:3000"}
+      - USER_MODULE={"protocol":"InProcess", "address":null}

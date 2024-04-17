@@ -5,14 +5,17 @@ interface IConfig {
     }
 }
 
+const productModuleConfig = JSON.parse(process.env.PRODUCT_MODULE ?? "");
+const userModuleConfig = JSON.parse(process.env.USER_MODULE ?? "");
+
 const configuration: IConfig =  {
     ProductModule: {
-        protocol: "InProcess",
-        address: null
+        protocol: productModuleConfig.protocol ?? "InProcess",
+        address: productModuleConfig.address ?? null
     }, 
     UserModule: {
-        protocol: "InProcess",
-        address: null
+        protocol: userModuleConfig.protocol ?? "InProcess",
+        address: userModuleConfig.address ?? null
     }
 }
 

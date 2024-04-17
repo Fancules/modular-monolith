@@ -1,3 +1,4 @@
+import {Express} from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -18,6 +19,6 @@ const swaggerOptions = {
     apis: ['./src/**/*.ts']
 }
 
-export default function swagger(app: any) {
+export default function swagger(app: Express) {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOptions)));
 }

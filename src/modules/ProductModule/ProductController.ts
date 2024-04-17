@@ -41,11 +41,6 @@ router.post('/', async (req: Request, res: Response) => {
     res.send(response);
 });
 
-// router.post('/crossmodulecommunication', (req: Request, res: Response) => {
-//     const type = req.query.type;
-//     mediator.send(type, req.body);
-// })
-
 /**
  * @swagger
  * /products:

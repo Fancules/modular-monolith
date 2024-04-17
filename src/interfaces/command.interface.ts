@@ -1,4 +1,4 @@
-interface ICommand<TCommandPayload> extends IModule{
+interface ICommand<TCommandPayload extends IPayload> extends IModule{
     type: string;
-    handler: (payload: TCommandPayload) => void;
+    handler: (payload: TCommandPayload | null) => string;
 }
