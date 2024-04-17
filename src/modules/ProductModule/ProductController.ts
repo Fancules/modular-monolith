@@ -1,10 +1,7 @@
 import { Request, Response, Router } from 'express';
 import mediator from '../../core/mediator';
-
-// interface AddProduct {
-//     name: string;
-//     price: number;
-// }
+import AddProductCommand from './commands/AddProductCommand';
+import GetAllProductsCommand from './commands/GetAllProductsCommand';
 
 const router = Router();
 /**
@@ -34,8 +31,13 @@ const router = Router();
  *       500:
  *         description: A server error occurred.
  */
-router.post('/', async (req: Request, res: Response) => {
-    const response = await mediator.send("AddProduct");
+router.post('/', async (req: Request, res: Response) => { 
+    const addProductCommand = new AddProductCommand();
+    const payload: IAddProductPayload = {
+        name: req.body.name,
+        description: req.body.description
+    }
+    const response = await mediator.send(addProductCommand, payload);
     res.send(response);
 });
 
@@ -66,7 +68,8 @@ router.post('/', async (req: Request, res: Response) => {
  *                   type: string
  */
 router.get('/', async (req: Request, res: Response) => {
-    const response = await mediator.send('GetAllProducts');
+    const getAllProductsCommand = new GetAllProductsCommand();
+    const response = await mediator.send(getAllProductsCommand, null);
     res.send(response);
 });
 

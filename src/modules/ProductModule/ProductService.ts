@@ -10,7 +10,7 @@ function GetProducts(payload: any){
 
 function GetProductsForTheUser(payload: any){
     const userId = payload.user;
-    const user = mediator.send("GetUserByID", {userId});
+    // const user = mediator.send("GetUserByID", {userId});
 }
 
 export {

@@ -1,5 +1,7 @@
 import { Request, Response, Router } from 'express';
 import mediator from '../../core/mediator';
+import AddUserCommand from './commands/AddUserCommand';
+import GetUserByIDCommand from './commands/GetUserByIDCommand';
 
 const router = Router();
 
@@ -31,7 +33,12 @@ const router = Router();
  *         description: A server error occurred.
  */
 router.post('/', async (req: Request, res: Response) => {
-    const response = await mediator.send('AddUser', req.body);
+    const addUserCommand = new AddUserCommand();
+    const payload: IAddUserPayload = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    const response = await mediator.send(addUserCommand, payload);
     res.send(response);
 });
 
@@ -64,7 +71,11 @@ router.post('/', async (req: Request, res: Response) => {
  *                   type: string
  */
 router.get('/:id', async (req: Request, res: Response) => {
-    const response = await mediator.send('GetUserByID', req.body);
+    const getUserByIDCommand = new GetUserByIDCommand();
+    const payload: IGetUserByIDPayload = {
+        userId: req.params.id
+    };
+    const response = await mediator.send(getUserByIDCommand, payload);
     res.send(response);
 });
 

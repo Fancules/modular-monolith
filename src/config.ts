@@ -6,11 +6,11 @@ interface IConfig {
 }
 
 const configuration: IConfig =  {
-    productModule: {
+    ProductModule: {
         protocol: "InProcess",
         address: null
     }, 
-    userModule: {
+    UserModule: {
         protocol: "InProcess",
         address: null
     }
