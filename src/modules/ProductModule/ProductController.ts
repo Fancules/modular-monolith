@@ -1,6 +1,5 @@
 import { Request, Response, Router } from 'express';
 import mediator from '../../core/mediator';
-import { AddProduct } from './ProductService';
 
 // interface AddProduct {
 //     name: string;
@@ -36,7 +35,7 @@ const router = Router();
  *         description: A server error occurred.
  */
 router.post('/', async (req: Request, res: Response) => {
-    const response = await mediator.send(req.body);
+    const response = await mediator.send("AddProduct");
     res.send(response);
 });
 

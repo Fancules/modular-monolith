@@ -1,4 +1,7 @@
 function AddUser(payload: any) {
+    const user = {
+        salary: 1500
+    }
     return "User added!";
 }
 

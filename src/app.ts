@@ -17,10 +17,10 @@ app.use('/products', productRouter);
 
 swagger(app);
 
-mediator.register('AddUser', AddUser);
-mediator.register('GetUserByID', GetUserByID);
-mediator.register('AddProduct', AddProduct);
-mediator.register('GetAllProducts', GetProducts);
+mediator.register('AddUser', 'userModule', AddUser);
+mediator.register('GetUserByID', 'userModule', GetUserByID);
+mediator.register('AddProduct', 'productModule', AddProduct);
+mediator.register('GetAllProducts', 'productModule', GetProducts);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
