@@ -1,8 +1,11 @@
+import axios from 'axios';
 import configuration from '../config';
 import AddProductCommand from '../modules/ProductModule/commands/AddProductCommand';
 import GetAllProductsCommand from '../modules/ProductModule/commands/GetAllProductsCommand';
 import AddUserCommand from '../modules/UserModule/commands/AddUserCommand';
 import GetUserByIDCommand from '../modules/UserModule/commands/GetUserByIDCommand';
+import GetProductsForTheUserCommand from '../modules/ProductModule/commands/GetProductsForTheUserCommand';
+
 
 type RouteHandlers = {
     [type: string]: {
@@ -15,7 +18,8 @@ const commands: ICommand<IPayload>[] = [
     new AddProductCommand,
     new GetAllProductsCommand,
     new AddUserCommand,
-    new GetUserByIDCommand
+    new GetUserByIDCommand,
+    new GetProductsForTheUserCommand
 ];
 
 class Mediator {
@@ -30,27 +34,20 @@ class Mediator {
             const moduleName: string = this.handlers[command.type].moduleName; 
             switch(configuration[moduleName].protocol)  {
                 case "InProcess":
-                    return Promise.resolve().then(() => this.handlers[command.type].handler(payload));
+                    return this.handlers[command.type].handler(payload);
                 case "HTTP":
                     if(!payload){
                         payload = {}
-                    }                
-                                       
-                    const res = await fetch(`${configuration[moduleName].address}/crossmodulecommunication?type=${command.type}`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(payload)
-                    });
-                    // console.log(res);
-                    return res;
+                    }      
+                    const response = await axios.post(`${configuration[moduleName].address}/crossmodulecommunication?type=${command.type}`, payload);
+                    
+                    return response.data;
                 default:
-                    Promise.reject(new Error(`Not available protocol!`));
+                    return new Error(`Not available protocol!`);
             }   
             // Or other protocols
         } else {
-            return Promise.reject(new Error(`No handler registered for ${command.type}`));
+            return new Error(`No handler registered for ${command.type}`);
         }
     }
 

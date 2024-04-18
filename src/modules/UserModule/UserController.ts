@@ -76,6 +76,7 @@ router.get('/:id', async (req: Request, res: Response) => {
         userId: req.params.id
     };
     const response = await mediator.send(getUserByIDCommand, payload);
+    
     res.send(response);
 });
 

@@ -3,9 +3,30 @@ import mediator from "../mediator";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /crossmodulecommunication?type=GetUserByID:
+ *   post:
+ *     summary: Get responce from the other module
+ *     description: Retrieves information from the other module.
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         required: true
+ *         description: Type of cross-module communication.
+ *         schema:
+ *           type: string
+ *           enum: [GetUserByID, AddProduct, GetAllProducts, AddUser]
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved cross module information.
+ *       404:
+ *         description: Module not found.
+ *       500:
+ *         description: A server error occurred.
+ */
+
 router.post('/', async (req: Request, res: Response) => {
-    console.log("Routing works", req.body, req.query.type);
-    
     try {
         const type = req.query.type;
         if(!type){
@@ -16,7 +37,6 @@ router.post('/', async (req: Request, res: Response) => {
             throw new Error("Command not found!");
         }
         const response = await mediator.send(command, req.body);
-        console.log(response);
         
         res.send(response);
     } catch (error) {
