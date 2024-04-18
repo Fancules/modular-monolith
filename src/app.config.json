@@ -1,0 +1,10 @@
+{
+    "ProductModule": {
+        "protocol": "InProcess",
+        "address": null
+    },
+    "UserModule": {
+        "protocol": "InProcess",
+        "address": null
+    }
+}

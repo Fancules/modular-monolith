@@ -1,17 +1,17 @@
-interface IConfig {
-    [moduleName: string]: {
-        protocol: string;
-        address: string | null
-    }
+import configFile from './app.config.json';
+
+interface IModuleConfig {
+    protocol: string;
+    address: string | null
 }
 
-const emptyConfigJSON = JSON.stringify({
-    protocol: "InProcess",
-    address: null
-});
+interface IConfig {
+    [moduleName: string]: IModuleConfig
+}
 
-const productModuleConfig = JSON.parse(process.env.PRODUCT_MODULE || emptyConfigJSON);
-const userModuleConfig = JSON.parse(process.env?.USER_MODULE || emptyConfigJSON);
+const productModuleConfig: IModuleConfig = process.env.PRODUCT_MODULE ? JSON.parse(process.env.PRODUCT_MODULE) : configFile.ProductModule;
+const userModuleConfig: IModuleConfig = process.env.USER_MODULE ? JSON.parse(process.env.USER_MODULE) : configFile.UserModule;
+
 
 const configuration: IConfig =  {
     ProductModule: {
