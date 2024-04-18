@@ -26,6 +26,10 @@ const router = Router();
  *                 type: string
  *                 description: The user's email.
  *                 example: john.doe@example.com
+ *               salary:
+ *                 type: number
+ *                 description: The user's asalary.
+ *                 example: 5500
  *     responses:
  *       200:
  *         description: Returns the newly created user.
@@ -36,7 +40,8 @@ router.post('/', async (req: Request, res: Response) => {
     const addUserCommand = new AddUserCommand();
     const payload: IAddUserPayload = {
         name: req.body.name,
-        email: req.body.email
+        email: req.body.email,
+        salary: req.body.salary
     }
     const response = await mediator.send(addUserCommand, payload);
     res.send(response);
@@ -73,7 +78,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
     const getUserByIDCommand = new GetUserByIDCommand();
     const payload: IGetUserByIDPayload = {
-        userId: req.params.id
+        userId: +req.params.id
     };
     const response = await mediator.send(getUserByIDCommand, payload);
     

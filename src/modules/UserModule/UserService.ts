@@ -11,7 +11,7 @@ const users: IUser[] = [
     { id: 10, name: 'James Thompson', email: 'james@example.com', salary: 3700 }
 ];
 
-function AddUser(payload: any) {
+function AddUser(payload: IAddUserPayload | null) {
     if(payload){
         const newUser = {
             ...payload,
@@ -24,8 +24,8 @@ function AddUser(payload: any) {
     }
 }
 
-function GetUserByID(payload: any) {
-    const user = users.find(user => user.id == payload.userId);
+function GetUserByID(payload: IGetUserByIDPayload | null) {
+    const user = users.find(user => user.id == payload?.userId);
     return user ? user : {};
 }
 

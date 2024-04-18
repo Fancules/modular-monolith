@@ -55,7 +55,7 @@ const products: IProduct[] = [
 ];
 
 
-function AddProduct(payload: any){
+function AddProduct(payload: IAddProductPayload | null){
     if(payload){
         const newProduct = {
             ...payload,
@@ -67,14 +67,17 @@ function AddProduct(payload: any){
     return {}
 }
 
-function GetProducts(payload: any) {
+function GetProducts(payload: IGetAllProductsPayload | null) {
     return products;
 }
 
-async function GetProductsForTheUser(payload: any){
-    const userId = payload.user;
+async function GetProductsForTheUser(payload: IGetProductsForTheUserPayload | null){
+    if(!payload){
+        return []
+    }
+    const userId: number = payload.userId;
     const getUserByIDCommand = new GetUserByIDCommand();
-    const user = await mediator.send(getUserByIDCommand, {userId: payload.userId});
+    const user = await mediator.send(getUserByIDCommand, {userId});
     const userCosts = user.salary * 0.1;
     const productsUserCanAfford = products.filter(product => product.price <= userCosts);
     return productsUserCanAfford;

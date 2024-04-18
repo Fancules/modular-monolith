@@ -1,3 +1,3 @@
 interface IGetUserByIDPayload extends IPayload {
-    userId: string;
+    userId: number;
 }

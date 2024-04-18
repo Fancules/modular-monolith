@@ -10,11 +10,11 @@ import GetProductsForTheUserCommand from '../modules/ProductModule/commands/GetP
 type RouteHandlers = {
     [type: string]: {
         moduleName: string,
-        handler: (payload: IPayload | null) => string
+        handler: (payload: IPayload | null) => any
     };
 };
 
-const commands: ICommand<IPayload>[] = [
+const commands: ICommand<any>[] = [
     new AddProductCommand,
     new GetAllProductsCommand,
     new AddUserCommand,
@@ -29,7 +29,7 @@ class Mediator {
         this.handlers = {};
     }
 
-    async send(command: ICommand<IPayload>, payload: IPayload | null){      
+    async send(command: ICommand<any>, payload: IPayload | null){      
         if(this.handlers[command.type]){
             const moduleName: string = this.handlers[command.type].moduleName; 
             switch(configuration[moduleName].protocol)  {
