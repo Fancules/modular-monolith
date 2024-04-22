@@ -26,7 +26,7 @@ const router = Router();
  *                 type: string
  *                 description: The user's email.
  *                 example: john.doe@example.com
- *               salary:
+ *               income:
  *                 type: number
  *                 description: The user's asalary.
  *                 example: 5500
@@ -41,7 +41,7 @@ router.post('/', async (req: Request, res: Response) => {
     const payload: IAddUserPayload = {
         name: req.body.name,
         email: req.body.email,
-        salary: req.body.salary
+        income: req.body.income
     }
     const response = await mediator.send(addUserCommand, payload);
     res.send(response);

@@ -30,12 +30,20 @@ class Mediator {
     }
 
     async send(command: ICommand<any>, payload: IPayload | null){      
+        console.log("Received command - " + command.type);
         if(this.handlers[command.type]){
             const moduleName: string = this.handlers[command.type].moduleName; 
+            console.log("For received command " + command.type + " handler module: " + moduleName);
+                        
             switch(configuration[moduleName].protocol)  {
                 case "InProcess":
+                    console.log(moduleName + " accessability configured as in process. Message will be handled by current instance");
+                    
                     return this.handlers[command.type].handler(payload);
                 case "HTTP":
+                    console.log(moduleName + " accessability configured as HTTP protocol with address " + configuration[moduleName].address);
+                    console.log(`Message will be send to the following address ${configuration[moduleName].address}/crossmodulecommunication?type=${command.type}`);
+                    
                     if(!payload){
                         payload = {}
                     }      
@@ -47,6 +55,7 @@ class Mediator {
             }   
             // Or other protocols
         } else {
+            console.log("For received command " + command.type + " handler was not found!");            
             return new Error(`No handler registered for ${command.type}`);
         }
     }

@@ -14,6 +14,10 @@ const swaggerOptions = {
                 url: 'http://localhost:3000',
                 description: 'Development server',
             },
+            {
+                url: 'http://localhost:3001',
+                description: 'Development server2',
+            }
         ]
     },
     apis: ['./src/**/*.ts']
